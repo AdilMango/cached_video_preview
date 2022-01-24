@@ -21,7 +21,7 @@ packages:
       name: analyzer_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0"
+    version: "0.8.0"
   args:
     dependency: transitive
     description:
@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  drift_dev:
+    dependency: transitive
+    description:
+      name: drift_dev
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -343,12 +350,10 @@ packages:
   moor_generator:
     dependency: "direct dev"
     description:
-      path: moor_generator
-      ref: cc7d98d110204acb72d415312a78ed7821382d69
-      resolved-ref: cc7d98d110204acb72d415312a78ed7821382d69
-      url: "https://github.com/simolus3/moor"
-    source: git
-    version: "4.5.1"
+      name: moor_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.0+1"
   package_config:
     dependency: transitive
     description:
@@ -516,14 +521,12 @@ packages:
     source: hosted
     version: "0.5.0"
   sqlparser:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: sqlparser
-      ref: cc7d98d110204acb72d415312a78ed7821382d69
-      resolved-ref: cc7d98d110204acb72d415312a78ed7821382d69
-      url: "https://github.com/simolus3/moor"
-    source: git
-    version: "0.17.2"
+      name: sqlparser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.19.1"
   stack_trace:
     dependency: transitive
     description:
