@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
@@ -7,15 +8,15 @@ part 'database.g.dart';
 // ignore_for_file: always_specify_types
 @DataClassName('VideoEntity')
 class Videos extends Table {
-  TextColumn get namess => text()();
+  TextColumn get name => text()();
 
   TextColumn get imageUrl => text()();
+
   BlobColumn get file => blob()();
 
   @override
-  Set<Column>? get primaryKey =>
-      {
-        namess,
+  Set<Column>? get primaryKey => {
+        name,
         imageUrl,
         file,
       };
@@ -31,11 +32,11 @@ class VideosDao extends DatabaseAccessor<CachedVideoDatabase>
 class CachedVideoDatabase extends _$CachedVideoDatabase {
   CachedVideoDatabase()
       : super(
-          FlutterQueryExecutor.inDatabaseFolder(
-            path: 'db.sqlite',
-            logStatements: kDebugMode,
-          ),
-        );
+    FlutterQueryExecutor.inDatabaseFolder(
+      path: 'db.sqlite',
+      logStatements: kDebugMode,
+    ),
+  );
 
   @override
   int get schemaVersion => 1;

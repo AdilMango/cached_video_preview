@@ -12,16 +12,12 @@ class VideoEntity extends DataClass implements Insertable<VideoEntity> {
   final String imageUrl;
   final Uint8List file;
   VideoEntity({required this.name, required this.imageUrl, required this.file});
-  factory VideoEntity.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String? prefix}) {
+  factory VideoEntity.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return VideoEntity(
-      name: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
-      imageUrl: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}image_url'])!,
-      file: const BlobType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}file'])!,
+      name: const StringType().mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      imageUrl: const StringType().mapFromDatabaseResponse(data['${effectivePrefix}image_url'])!,
+      file: const BlobType().mapFromDatabaseResponse(data['${effectivePrefix}file'])!,
     );
   }
   @override
@@ -43,7 +39,7 @@ class VideoEntity extends DataClass implements Insertable<VideoEntity> {
 
   factory VideoEntity.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return VideoEntity(
       name: serializer.fromJson<String>(json['name']),
       imageUrl: serializer.fromJson<String>(json['imageUrl']),
@@ -52,7 +48,7 @@ class VideoEntity extends DataClass implements Insertable<VideoEntity> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'name': serializer.toJson<String>(name),
       'imageUrl': serializer.toJson<String>(imageUrl),
@@ -77,8 +73,7 @@ class VideoEntity extends DataClass implements Insertable<VideoEntity> {
   }
 
   @override
-  int get hashCode =>
-      $mrjf($mrjc(name.hashCode, $mrjc(imageUrl.hashCode, file.hashCode)));
+  int get hashCode => Object.hash(name, imageUrl, file);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -154,28 +149,33 @@ class VideosCompanion extends UpdateCompanion<VideoEntity> {
 class $VideosTable extends Videos with TableInfo<$VideosTable, VideoEntity> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $VideosTable(this._db, [this._alias]);
+
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
-      'name', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String?> name =
+      GeneratedColumn<String?>('name', aliasedName, false, type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _imageUrlMeta = const VerificationMeta('imageUrl');
-  late final GeneratedColumn<String?> imageUrl = GeneratedColumn<String?>(
-      'image_url', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String?> imageUrl =
+      GeneratedColumn<String?>('image_url', aliasedName, false, type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _fileMeta = const VerificationMeta('file');
-  late final GeneratedColumn<Uint8List?> file = GeneratedColumn<Uint8List?>(
-      'file', aliasedName, false,
-      typeName: 'BLOB', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<Uint8List?> file =
+      GeneratedColumn<Uint8List?>('file', aliasedName, false, type: const BlobType(), requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [name, imageUrl, file];
+
   @override
   String get aliasedName => _alias ?? 'videos';
+
   @override
   String get actualTableName => 'videos';
+
   @override
-  VerificationContext validateIntegrity(Insertable<VideoEntity> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<VideoEntity> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('name')) {
@@ -203,8 +203,7 @@ class $VideosTable extends Videos with TableInfo<$VideosTable, VideoEntity> {
   Set<GeneratedColumn> get $primaryKey => {name, imageUrl, file};
   @override
   VideoEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return VideoEntity.fromData(data, _db,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    return VideoEntity.fromData(data, prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
