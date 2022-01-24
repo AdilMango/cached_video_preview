@@ -7,13 +7,15 @@ part 'database.g.dart';
 // ignore_for_file: always_specify_types
 @DataClassName('VideoEntity')
 class Videos extends Table {
-  TextColumn get name => text()();
+  TextColumn get namess => text()();
+
   TextColumn get imageUrl => text()();
   BlobColumn get file => blob()();
 
   @override
-  Set<Column>? get primaryKey => {
-        name,
+  Set<Column>? get primaryKey =>
+      {
+        namess,
         imageUrl,
         file,
       };
