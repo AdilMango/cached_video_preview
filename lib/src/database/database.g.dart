@@ -15,9 +15,12 @@ class VideoEntity extends DataClass implements Insertable<VideoEntity> {
   factory VideoEntity.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return VideoEntity(
-      name: const StringType().mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
-      imageUrl: const StringType().mapFromDatabaseResponse(data['${effectivePrefix}image_url'])!,
-      file: const BlobType().mapFromDatabaseResponse(data['${effectivePrefix}file'])!,
+      name: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      imageUrl: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}image_url'])!,
+      file: const BlobType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}file'])!,
     );
   }
   @override
@@ -147,23 +150,27 @@ class VideosCompanion extends UpdateCompanion<VideoEntity> {
 }
 
 class $VideosTable extends Videos with TableInfo<$VideosTable, VideoEntity> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
 
-  $VideosTable(this._db, [this._alias]);
+  $VideosTable(this.attachedDatabase, [this._alias]);
 
   final VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedColumn<String?> name =
-      GeneratedColumn<String?>('name', aliasedName, false, type: const StringType(), requiredDuringInsert: true);
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _imageUrlMeta = const VerificationMeta('imageUrl');
   @override
-  late final GeneratedColumn<String?> imageUrl =
-      GeneratedColumn<String?>('image_url', aliasedName, false, type: const StringType(), requiredDuringInsert: true);
+  late final GeneratedColumn<String?> imageUrl = GeneratedColumn<String?>(
+      'image_url', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _fileMeta = const VerificationMeta('file');
   @override
-  late final GeneratedColumn<Uint8List?> file =
-      GeneratedColumn<Uint8List?>('file', aliasedName, false, type: const BlobType(), requiredDuringInsert: true);
+  late final GeneratedColumn<Uint8List?> file = GeneratedColumn<Uint8List?>(
+      'file', aliasedName, false,
+      type: const BlobType(), requiredDuringInsert: true);
 
   @override
   List<GeneratedColumn> get $columns => [name, imageUrl, file];
@@ -175,7 +182,8 @@ class $VideosTable extends Videos with TableInfo<$VideosTable, VideoEntity> {
   String get actualTableName => 'videos';
 
   @override
-  VerificationContext validateIntegrity(Insertable<VideoEntity> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<VideoEntity> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('name')) {
@@ -203,12 +211,13 @@ class $VideosTable extends Videos with TableInfo<$VideosTable, VideoEntity> {
   Set<GeneratedColumn> get $primaryKey => {name, imageUrl, file};
   @override
   VideoEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return VideoEntity.fromData(data, prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    return VideoEntity.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
   $VideosTable createAlias(String alias) {
-    return $VideosTable(_db, alias);
+    return $VideosTable(attachedDatabase, alias);
   }
 }
 
